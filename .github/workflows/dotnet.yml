@@ -16,13 +16,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
+
+    - name: Navigate to project directory
+      run: cd TaskSystem  # Navigeer naar de map waar je .sln-bestand zich bevindt
+
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore TaskService.sln  # Voer restore uit op de .sln
+
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build TaskService.sln --no-restore  # Bouw de oplossing
+
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test TaskService.sln --no-build --verbosity normal  # Voer tests uit
+
+
