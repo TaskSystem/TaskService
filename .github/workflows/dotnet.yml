@@ -19,13 +19,23 @@ jobs:
       with:
         dotnet-version: 8.0.x
 
-    - name: Restore dependencies
+    - name: Restore dependencies for TaskService
       run: dotnet restore TaskSystem/TaskService.sln  # Volg het pad naar de .sln
 
-    - name: Build
+    - name: Restore dependencies for BoardService
+      run: dotnet restore TaskSystem/BoardService.sln  # Volg het pad naar de .sln
+
+    - name: Build TaskService
       run: dotnet build TaskSystem/TaskService.sln --no-restore  # Bouw de oplossing
 
-    - name: Test
+    - name: Build BoardService
+      run: dotnet build TaskSystem/BoardService.sln --no-restore  # Bouw de oplossing
+
+    - name: Test TaskService
       run: dotnet test TaskSystem/TaskService.sln --no-build --verbosity normal  # Voer tests uit
+
+    - name: Test BoardService
+      run: dotnet test TaskSystem/BoardService.sln --no-build --verbosity normal  # Voer tests uit
+
 
 
