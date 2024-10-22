@@ -1,8 +1,10 @@
+version: '3.8'  # Specificeer de versie van docker-compose
+
 services:
   taskservice:
     build:
       context: ./TaskSystem  # Dit is de directory waar je .sln en Dockerfile zich bevinden
-      dockerfile: TaskService/Dockerfile  # Specificeer de Dockerfile
+      dockerfile: Dockerfile  # Specificeer de Dockerfile (deze bevindt zich in de TaskSystem map)
     ports:
       - "5000:80"  # Expose port 80 van de container naar port 5000 op de host
     environment:
@@ -11,10 +13,8 @@ services:
   boardservice:
     build:
       context: ./BoardService  # Dit is de directory waar je .sln en Dockerfile zich bevinden
-      dockerfile: BoardService/Dockerfile  # Specificeer de Dockerfile
+      dockerfile: Dockerfile  # Specificeer de Dockerfile (deze bevindt zich in de BoardService map)
     ports:
-      - "5000:80"  # Expose port 80 van de container naar port 5000 op de host
+      - "5001:80"  # Expose port 80 van de container naar port 5001 op de host
     environment:
       - ASPNETCORE_ENVIRONMENT=Development  # Zet de omgeving als Development (optioneel)
-
-
