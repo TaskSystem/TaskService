@@ -19,4 +19,4 @@ WORKDIR /app
 COPY --from=build-env /app/out ./  
 
 # Stel de startcommando in
-ENTRYPOINT ["dotnet", "TaskService/TaskService.dll"]  # Start de applicatie
+ENTRYPOINT ["dotnet", "TaskService.dll"]  # Start de applicatie

@@ -3,17 +3,17 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 WORKDIR /app
 
 # Kopieer de projectbestanden en herstel afhankelijkheden
-COPY BoardService/BoardService.csproj ./BoardService/
-RUN dotnet restore BoardService/BoardService.csproj  # Specificeer het projectbestand
+COPY BoardService.csproj ./   
+RUN dotnet restore BoardService.csproj  
 
 # Kopieer de rest van de applicatie
-COPY BoardService/. ./BoardService/
-RUN dotnet publish BoardService/BoardService.csproj -c Release -o out
+COPY . ./   
+RUN dotnet publish BoardService.csproj -c Release -o out  
 
 # Maak de runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
-COPY --from=build-env /app/out ./
+COPY --from=build-env /app/out ./  
 
 # Stel de startcommando in
-ENTRYPOINT ["dotnet", "BoardService.dll"]
+ENTRYPOINT ["dotnet", "BoardService.dll"]  
