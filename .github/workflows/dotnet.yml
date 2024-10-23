@@ -25,17 +25,26 @@ jobs:
     - name: Restore dependencies for BoardService
       run: dotnet restore BoardService/BoardService.sln  # Volg het pad naar de .sln
 
+    - name: Restore dependencies for UserService
+      run: dotnet restore UserService/UserService.sln  # Volg het pad naar de .sln
+
     - name: Build TaskService
       run: dotnet build TaskSystem/TaskService.sln --no-restore  # Bouw de oplossing
 
     - name: Build BoardService
       run: dotnet build BoardService/BoardService.sln --no-restore  # Bouw de oplossing
 
+    - name: Build UserService
+      run: dotnet build UserService/UserService.sln --no-restore  # Bouw de oplossing
+    
     - name: Test TaskService
       run: dotnet test TaskSystem/TaskService.sln --no-build --verbosity normal  # Voer tests uit
 
     - name: Test BoardService
       run: dotnet test BoardService/BoardService.sln --no-build --verbosity normal  # Voer tests uit
+
+    - name: Test UserService
+      run: dotnet test UserService/UserService.sln --no-build --verbosity normal  # Voer tests uit
 
 
 
