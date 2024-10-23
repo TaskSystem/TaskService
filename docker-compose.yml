@@ -18,3 +18,11 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development  # Zet de omgeving als Development (optioneel)
 
 
+  userservice:
+    build:
+      context: ./UserService/UserService  # Pad naar je UserService directory
+      dockerfile: Dockerfile
+    ports:
+      - "5002:80"  # Poort configuratie, pas aan als dat nodig is
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development  # Zet de omgeving als Development (optioneel)
