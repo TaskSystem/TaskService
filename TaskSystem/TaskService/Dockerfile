@@ -1,4 +1,4 @@
-﻿# Gebruik de officiële .NET 8.0 SDK image om de applicatie te bouwen
+# Gebruik de officiële .NET 8.0 SDK image om de applicatie te bouwen
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 WORKDIR /app
 
@@ -19,4 +19,4 @@ WORKDIR /app
 COPY --from=build-env /app/out ./  
 
 # Stel de startcommando in
-ENTRYPOINT ["dotnet", "TaskService.dll"]  # Start de applicatie
+ENTRYPOINT ["dotnet", "TaskService.dll"]  

@@ -26,3 +26,12 @@ services:
       - "5002:80"  # Poort configuratie, pas aan als dat nodig is
     environment:
       - ASPNETCORE_ENVIRONMENT=Development  # Zet de omgeving als Development (optioneel)
+
+  commentservice:
+    build:
+      context: ./CommentService/CommentService 
+      dockerfile: Dockerfile
+    ports:
+      - "5003:80" 
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development  # Zet de omgeving als Development (optioneel)
