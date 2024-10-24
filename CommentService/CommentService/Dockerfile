@@ -1,28 +1,19 @@
-﻿# Stap 1: Gebruik de officiële .NET SDK als basis
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-
-# Stel de werkdirectory in
+﻿# Gebruik de officiële .NET 8.0 SDK image om de applicatie te bouwen
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 WORKDIR /app
 
-# Kopieer het projectbestand en herstel afhankelijkheden
-COPY ./CommentService/*.csproj ./CommentService/
-RUN dotnet restore ./CommentService/CommentService.csproj
+# Kopieer de projectbestanden en herstel afhankelijkheden
+COPY *.csproj ./
+RUN dotnet restore
 
-# Stap 2: Kopieer de rest van de applicatie en bouw deze
-COPY ./CommentService/. ./CommentService/
-RUN dotnet publish ./CommentService/CommentService.csproj -c Release -o out
+# Kopieer de rest van de applicatie
+COPY . ./
+RUN dotnet publish -c Release -o out
 
-# Stap 3: Maak een runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
-
-# Stel de werkdirectory in
+# Maak de runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
+COPY --from=build-env /app/out ./
 
-# Kopieer de output van de build
-COPY --from=build /app/CommentService/out ./
-
-# Expose poort 8080 (of een andere poort als dat nodig is)
-EXPOSE 8080
-
-# Definieer het commando om de applicatie te starten
+# Stel de startcommando in
 ENTRYPOINT ["dotnet", "CommentService.dll"]
