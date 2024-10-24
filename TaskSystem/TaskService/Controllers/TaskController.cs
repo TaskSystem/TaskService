@@ -9,10 +9,12 @@ namespace TaskService.Controllers
     public class TaskController : ControllerBase
     {
         private readonly ITaskRepository _taskRepository;
+        private readonly PublisherService _publisherService;
 
-        public TaskController(ITaskRepository taskRepository)
+        public TaskController(ITaskRepository taskRepository, PublisherService publisherService)
         {
             _taskRepository = taskRepository;
+            _publisherService = publisherService;
         }
 
         [HttpGet]
@@ -39,6 +41,21 @@ namespace TaskService.Controllers
             if (task == null)
                 return BadRequest();
             _taskRepository.AddTask(task);
+
+
+
+            // Maak het evenement aan
+            var taskCreatedEvent = new TaskCreatedEvent
+            {
+                TaskId = task.Id,
+                TaskName = task.Title,
+            };
+
+            _publisherService.Publish(taskCreatedEvent);
+
+
+
+
             return CreatedAtAction(nameof(GetTaskById), new { id = task.Id }, task);
         }
 
