@@ -1,5 +1,4 @@
 ﻿using System.Xml.Linq;
-using TaskService.DTO;
 
 namespace TaskService.Model
 {
@@ -13,7 +12,6 @@ namespace TaskService.Model
         public bool IsCompleted { get; set; }     // Task completion status
                                                   // public List<string> Files { get; set; }   // File URLs or names associated with the task
 
-        public List<CommentDTO> Comments { get; set; } = new List<CommentDTO>();
 
     }
 }
