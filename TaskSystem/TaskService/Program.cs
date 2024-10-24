@@ -1,3 +1,4 @@
+using Microsoft.OpenApi.Models;
 using TaskService.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,23 +6,27 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddSingleton<ITaskRepository, TaskRepository>();
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+// Swagger configuratie
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Task API", Version = "v1" });
+});
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// Zorg ervoor dat routing is ingeschakeld
+app.UseRouting();
 
-app.UseHttpsRedirection();
 
+
+app.UseSwagger();
+app.UseSwaggerUI();
+// app.UseHttpsRedirection();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
+
