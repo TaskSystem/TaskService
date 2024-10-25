@@ -2,7 +2,8 @@
 {
     public class TaskCreatedEvent
     {
-        public Guid TaskId { get; set; }
         public string TaskName { get; set; }
+
+        public string Email { get; set; }
     }
 }

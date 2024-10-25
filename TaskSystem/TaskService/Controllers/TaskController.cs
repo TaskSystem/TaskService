@@ -47,8 +47,8 @@ namespace TaskService.Controllers
             // Maak het evenement aan
             var taskCreatedEvent = new TaskCreatedEvent
             {
-                TaskId = task.Id,
                 TaskName = task.Title,
+                Email = task.Email
             };
 
             _publisherService.Publish(taskCreatedEvent);
