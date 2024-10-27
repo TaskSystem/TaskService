@@ -1,15 +1,22 @@
+using NotificationService;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Configure SendGrid API Key and other environment variables
+var sendGridApiKey = builder.Configuration["SENDGRID_API_KEY"];
+builder.Services.AddSingleton(new EmailService(sendGridApiKey));
 
+// Register the NotificationService as a hosted service
+builder.Services.AddHostedService<NotificationService.NotificationService>();
+
+// Add services to the container
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -17,9 +24,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

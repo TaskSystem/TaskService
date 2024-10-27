@@ -3,76 +3,93 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using RabbitMQ.Client.Exceptions;
 
 namespace NotificationService
 {
-    public class Notification : IDisposable
+    public class NotificationService : BackgroundService
     {
-        private readonly IConnection _connection;
-        private readonly IModel _channel;
+        private IConnection _connection;
+        private IModel _channel;
+        private readonly EmailService _emailService;
 
-        public Notification()
+        public NotificationService(EmailService emailService)
         {
-            var factory = new ConnectionFactory() { HostName = "rabbitmq" }; // Zorg dat dit overeenkomt met je RabbitMQ-setup
-            _connection = factory.CreateConnection();
-            _channel = _connection.CreateModel();
-            _channel.QueueDeclare(queue: "task_created_queue", durable: false, exclusive: false, autoDelete: false, arguments: null);
+            _emailService = emailService;
         }
 
-        public void StartListening()
+        protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var consumer = new EventingBasicConsumer(_channel);
-            consumer.Received += (model, ea) =>
-            {
-                var body = ea.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
-                var taskCreatedEvent = JsonSerializer.Deserialize<TaskCreatedEvent>(message);
-
-                if (taskCreatedEvent != null)
-                {
-                    SendEmailNotification(taskCreatedEvent);
-                }
-            };
-            _channel.BasicConsume(queue: "task_created_queue", autoAck: true, consumer: consumer);
-            Console.WriteLine(" [*] Waiting for task creation events.");
+            // Start listening for incoming messages
+            StartListening(stoppingToken);
+            return Task.CompletedTask;
         }
 
-        private void SendEmailNotification(TaskCreatedEvent taskEvent)
+        private void StartListening(CancellationToken stoppingToken)
         {
-            using (var smtpClient = new SmtpClient("smtp.example.com", 587)) // Pas aan naar je SMTP-server
+            var factory = new ConnectionFactory() { HostName = "rabbitmq" }; // Use the service name
+
+            int retries = 10;
+            while (retries > 0)
             {
-                smtpClient.Credentials = new NetworkCredential("your-email@example.com", "your-password");
-                smtpClient.EnableSsl = true;
-
-                var mailMessage = new MailMessage
-                {
-                    From = new MailAddress("your-email@example.com"),
-                    Subject = "New Task Created!",
-                    Body = $"Hello {taskEvent.Email}, a new task '{taskEvent.TaskName}' was created on your account!",
-                    IsBodyHtml = false,
-                };
-
-                mailMessage.To.Add(taskEvent.Email);
-
                 try
                 {
-                    smtpClient.Send(mailMessage);
-                    Console.WriteLine($" [x] Sent email to {taskEvent.Email}");
+                    _connection = factory.CreateConnection();
+                    _channel = _connection.CreateModel();
+                    _channel.QueueDeclare(queue: "task_created_queue", durable: false, exclusive: false, autoDelete: false, arguments: null);
+
+                    var consumer = new EventingBasicConsumer(_channel);
+                    consumer.Received += async (model, ea) =>
+                    {
+                        try
+                        {
+                            var body = ea.Body.ToArray();
+                            var message = Encoding.UTF8.GetString(body);
+                            var taskCreatedEvent = JsonSerializer.Deserialize<TaskCreatedEvent>(message);
+
+                            if (taskCreatedEvent != null)
+                            {
+                                await _emailService.SendEmailAsync(taskCreatedEvent.Email, "New Task Created!",
+                                    $"Hello, a new task '{taskCreatedEvent.TaskName}' was created!",
+                                    $"<strong>Hello, a new task '{taskCreatedEvent.TaskName}' was created!</strong>");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Error processing message: {ex.Message}");
+                        }
+                    };
+
+                    _channel.BasicConsume(queue: "task_created_queue", autoAck: true, consumer: consumer);
+                    Console.WriteLine(" [*] Waiting for task creation events.");
+                    break;
                 }
-                catch (Exception ex)
+                catch (BrokerUnreachableException)
                 {
-                    Console.WriteLine($" [!] Failed to send email: {ex.Message}");
+                    Console.WriteLine("Retrying to connect to RabbitMQ...");
+                    retries--;
+                    Thread.Sleep(2000);
                 }
+            }
+
+            if (_connection == null)
+            {
+                Console.WriteLine("Failed to connect to RabbitMQ after retries.");
+                return;
             }
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
+            // Clean up the resources
             _channel?.Close();
             _connection?.Close();
+            base.Dispose();
         }
     }
 }
-
