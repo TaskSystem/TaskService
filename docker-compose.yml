@@ -1,4 +1,16 @@
 services:
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    ports:
+      - "5672:5672"     # RabbitMQ protocol
+      - "15672:15672"   # RabbitMQ Management UI
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:15672/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
   taskservice:
     build:
       context: ./TaskSystem  # De map waar de Dockerfile en het projectbestand zich bevinden
@@ -36,9 +48,17 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development  # Zet de omgeving als Development (optioneel)
 
-  
-  rabbitmq:
-    image: "rabbitmq:3-management"
+  notificationservice:
+    build:
+      context: ./NotificationService/NotificationService
+      dockerfile: Dockerfile
     ports:
-      - "5672:5672"     # RabbitMQ protocol
-      - "15672:15672"   # RabbitMQ Management UI
+      - "5004:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - SENDGRID_API_KEY=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
+    depends_on:
+      - rabbitmq
+
+  
+  
