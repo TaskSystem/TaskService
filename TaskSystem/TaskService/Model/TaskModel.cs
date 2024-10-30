@@ -14,7 +14,10 @@ namespace TaskService.Model
         public bool IsCompleted { get; set; }
         
         public DateTime CreatedAt { get; set; }// Task completion status
-                                                  // public List<string> Files { get; set; }   // File URLs or names associated with the task
+                                               // public List<string> Files { get; set; }   // File URLs or names associated with the task
+
+        // Voeg een lijst van comments toe
+        public List<Comment> Comments { get; set; } = new List<Comment>();
 
 
     }

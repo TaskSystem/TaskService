@@ -104,7 +104,19 @@ namespace TaskService.Controllers
             _taskRepository.UpdateTask(task);
             return NoContent();
         }
-            
 
+        [HttpGet("{taskId}/comments")]
+        public IActionResult GetCommentsByTaskId(Guid taskId)
+        {
+            var comments = _taskRepository.GetCommentsByTaskId(taskId);
+            return Ok(comments);
+        }
+
+        [HttpPost("{taskId}/comments")]
+        public IActionResult AddCommentToTask(Guid taskId, [FromBody] Comment comment)
+        {
+            _taskRepository.AddCommentToTask(taskId, comment);
+            return CreatedAtAction(nameof(GetCommentsByTaskId), new { taskId = taskId }, comment);
+        }
     }
 }

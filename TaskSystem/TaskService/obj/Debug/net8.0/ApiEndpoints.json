@@ -116,6 +116,43 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "TaskService.Controllers.TaskController",
+    "Method": "GetCommentsByTaskId",
+    "RelativePath": "api/Task/{taskId}/comments",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "taskId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TaskService.Controllers.TaskController",
+    "Method": "AddCommentToTask",
+    "RelativePath": "api/Task/{taskId}/comments",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "taskId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "comment",
+        "Type": "TaskService.Model.Comment",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "TaskService.Controllers.WeatherForecastController",
     "Method": "Get",
     "RelativePath": "WeatherForecast",

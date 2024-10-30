@@ -11,6 +11,11 @@ namespace TaskService.Repository
         void UpdateTask(TaskModel task);
         void DeleteTask(Guid id);
 
-        
+        void AddCommentToTask(Guid taskId, Comment comment);
+
+        IEnumerable<Comment> GetCommentsByTaskId(Guid taskId);
+
+
+
     }
 }

@@ -38,5 +38,23 @@ namespace TaskService.Repository
                 existingTask.IsCompleted = updatedTask.IsCompleted;
             }
         }
+
+        public void AddCommentToTask(Guid taskId, Comment comment)
+        {
+            var task = GetTaskById(taskId);
+            if (task != null)
+            {
+                comment.Id = Guid.NewGuid();
+                comment.CreatedAt = DateTime.UtcNow;
+                task.Comments.Add(comment);
+            }
+        }
+
+        public IEnumerable<Comment> GetCommentsByTaskId(Guid taskId)
+        {
+            var task = GetTaskById(taskId);
+            return task?.Comments ?? Enumerable.Empty<Comment>();
+        }
+
     }
 }
