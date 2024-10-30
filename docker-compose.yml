@@ -39,15 +39,6 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development  # Zet de omgeving als Development (optioneel)
 
-  commentservice:
-    build:
-      context: ./CommentService/CommentService 
-      dockerfile: Dockerfile
-    ports:
-      - "5003:8080" 
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development  # Zet de omgeving als Development (optioneel)
-
   notificationservice:
     build:
       context: ./NotificationService/NotificationService
