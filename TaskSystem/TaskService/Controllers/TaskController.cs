@@ -10,11 +10,13 @@ namespace TaskService.Controllers
     {
         private readonly ITaskRepository _taskRepository;
         private readonly PublisherService _publisherService;
+        private readonly HttpClient _httpClient;
 
-        public TaskController(ITaskRepository taskRepository, PublisherService publisherService)
+        public TaskController(ITaskRepository taskRepository, PublisherService publisherService, HttpClient httpClient)
         {
             _taskRepository = taskRepository;
             _publisherService = publisherService;
+            _httpClient = httpClient;
         }
 
         [HttpGet]
@@ -34,6 +36,8 @@ namespace TaskService.Controllers
             }
             return Ok(task);
         }
+
+        
 
         [HttpPost]
         public IActionResult CreateTask([FromBody] TaskModel task)

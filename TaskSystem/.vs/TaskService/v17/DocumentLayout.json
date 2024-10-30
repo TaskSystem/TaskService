@@ -7,36 +7,16 @@
       "RelativeMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|solutionrelative:taskservice\\controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|c:\\users\\zahas\\source\\repos\\taskservice\\tasksystem\\taskservice\\repository\\itaskrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|solutionrelative:taskservice\\repository\\itaskrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|c:\\users\\zahas\\source\\repos\\taskservice\\tasksystem\\taskservice\\repository\\taskrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|solutionrelative:taskservice\\repository\\taskrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|c:\\users\\zahas\\source\\repos\\taskservice\\tasksystem\\taskservice\\model\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|solutionrelative:taskservice\\model\\comment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|c:\\users\\zahas\\source\\repos\\taskservice\\tasksystem\\taskservice\\model\\taskmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|solutionrelative:taskservice\\model\\taskmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|c:\\users\\zahas\\source\\repos\\taskservice\\tasksystem\\taskservice\\model\\taskcreatedevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|solutionrelative:taskservice\\model\\taskcreatedevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|c:\\users\\zahas\\source\\repos\\taskservice\\tasksystem\\taskservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|solutionrelative:taskservice\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|c:\\users\\zahas\\source\\repos\\taskservice\\tasksystem\\taskservice\\publishrmq\\publisherservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|solutionrelative:taskservice\\publishrmq\\publisherservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|c:\\users\\zahas\\source\\repos\\taskservice\\tasksystem\\taskservice\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|solutionrelative:taskservice\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|c:\\users\\zahas\\source\\repos\\taskservice\\tasksystem\\taskservice\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|solutionrelative:taskservice\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|c:\\users\\zahas\\source\\repos\\taskservice\\tasksystem\\taskservice\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|solutionrelative:taskservice\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,96 +26,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ITaskRepository.cs",
-              "DocumentMoniker": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Repository\\ITaskRepository.cs",
-              "RelativeDocumentMoniker": "TaskService\\Repository\\ITaskRepository.cs",
-              "ToolTip": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Repository\\ITaskRepository.cs",
-              "RelativeToolTip": "TaskService\\Repository\\ITaskRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-30T09:40:19.019Z",
+              "DocumentIndex": 2,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "TaskService\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Properties\\launchSettings.json",
+              "RelativeToolTip": "TaskService\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAQAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-10-30T12:23:51.497Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "Comment.cs",
-              "DocumentMoniker": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Model\\Comment.cs",
-              "RelativeDocumentMoniker": "TaskService\\Model\\Comment.cs",
-              "ToolTip": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Model\\Comment.cs",
-              "RelativeToolTip": "TaskService\\Model\\Comment.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-30T09:35:48.362Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "TaskRepository.cs",
-              "DocumentMoniker": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Repository\\TaskRepository.cs",
-              "RelativeDocumentMoniker": "TaskService\\Repository\\TaskRepository.cs",
-              "ToolTip": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Repository\\TaskRepository.cs",
-              "RelativeToolTip": "TaskService\\Repository\\TaskRepository.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAgwAUAAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-30T09:34:43.93Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Dockerfile",
-              "DocumentMoniker": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Dockerfile",
-              "RelativeDocumentMoniker": "TaskService\\Dockerfile",
-              "ToolTip": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Dockerfile",
-              "RelativeToolTip": "TaskService\\Dockerfile",
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\appsettings.json",
+              "RelativeDocumentMoniker": "TaskService\\appsettings.json",
+              "ToolTip": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\appsettings.json",
+              "RelativeToolTip": "TaskService\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-10-25T11:14:04.971Z"
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-10-30T12:23:41.553Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Program.cs",
               "RelativeDocumentMoniker": "TaskService\\Program.cs",
               "ToolTip": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Program.cs",
               "RelativeToolTip": "TaskService\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAQwCEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-24T21:23:48.7Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "TaskModel.cs",
-              "DocumentMoniker": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Model\\TaskModel.cs",
-              "RelativeDocumentMoniker": "TaskService\\Model\\TaskModel.cs",
-              "ToolTip": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Model\\TaskModel.cs",
-              "RelativeToolTip": "TaskService\\Model\\TaskModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAABKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-24T21:17:58.477Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "PublisherService.cs",
-              "DocumentMoniker": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\PublishRMQ\\PublisherService.cs",
-              "RelativeDocumentMoniker": "TaskService\\PublishRMQ\\PublisherService.cs",
-              "ToolTip": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\PublishRMQ\\PublisherService.cs",
-              "RelativeToolTip": "TaskService\\PublishRMQ\\PublisherService.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA4AAACBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-24T21:16:20.389Z",
+              "WhenOpened": "2024-10-30T10:53:20.036Z",
               "EditorCaption": ""
             },
             {
@@ -146,22 +75,9 @@
               "RelativeDocumentMoniker": "TaskService\\Controllers\\TaskController.cs",
               "ToolTip": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Controllers\\TaskController.cs",
               "RelativeToolTip": "TaskService\\Controllers\\TaskController.cs",
-              "ViewState": "AgIAAFkAAAAAAAAAAAAAwHgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAAAYwCoAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-24T21:14:10.137Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "TaskCreatedEvent.cs",
-              "DocumentMoniker": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Model\\TaskCreatedEvent.cs",
-              "RelativeDocumentMoniker": "TaskService\\Model\\TaskCreatedEvent.cs",
-              "ToolTip": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Model\\TaskCreatedEvent.cs",
-              "RelativeToolTip": "TaskService\\Model\\TaskCreatedEvent.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-24T21:15:07.375Z",
               "EditorCaption": ""
             }
           ]

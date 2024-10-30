@@ -15,6 +15,8 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Task API", Version = "v1" });
 });
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpClient();
+
 
 var app = builder.Build();
 
