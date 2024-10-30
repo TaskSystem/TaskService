@@ -105,6 +105,13 @@ namespace TaskService.Controllers
             return NoContent();
         }
 
+        [HttpPost("{taskId}/comments")]
+        public IActionResult AddCommentToTask(Guid taskId, [FromBody] Comment comment)
+        {
+            _taskRepository.AddCommentToTask(taskId, comment);
+            return CreatedAtAction(nameof(GetCommentsByTaskId), new { taskId = taskId }, comment);
+        }
+
         [HttpGet("{taskId}/comments")]
         public IActionResult GetCommentsByTaskId(Guid taskId)
         {
@@ -112,11 +119,5 @@ namespace TaskService.Controllers
             return Ok(comments);
         }
 
-        [HttpPost("{taskId}/comments")]
-        public IActionResult AddCommentToTask(Guid taskId, [FromBody] Comment comment)
-        {
-            _taskRepository.AddCommentToTask(taskId, comment);
-            return CreatedAtAction(nameof(GetCommentsByTaskId), new { taskId = taskId }, comment);
-        }
     }
 }

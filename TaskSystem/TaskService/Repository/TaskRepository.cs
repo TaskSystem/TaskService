@@ -44,7 +44,8 @@ namespace TaskService.Repository
             var task = GetTaskById(taskId);
             if (task != null)
             {
-                comment.Id = Guid.NewGuid();
+                comment.Id = Guid.NewGuid();  // Genereer een unieke ID voor de comment
+                comment.TaskId = taskId;
                 comment.CreatedAt = DateTime.UtcNow;
                 task.Comments.Add(comment);
             }
@@ -55,6 +56,7 @@ namespace TaskService.Repository
             var task = GetTaskById(taskId);
             return task?.Comments ?? Enumerable.Empty<Comment>();
         }
+
 
     }
 }
