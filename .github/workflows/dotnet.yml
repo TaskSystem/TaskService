@@ -29,6 +29,9 @@ jobs:
       - name: Restore dependencies for UserService
         run: dotnet restore UserService/UserService.sln
 
+      - name: Restore dependencies for NotificationService
+        run: dotnet restore NotificationService/NotificationService.sln
+
       - name: Build TaskService
         run: dotnet build TaskSystem/TaskService.sln --no-restore
 
@@ -37,6 +40,9 @@ jobs:
 
       - name: Build UserService
         run: dotnet build UserService/UserService.sln --no-restore
+
+      - name: Build NotificationService
+        run: dotnet build NotificationService/NotificationService.sln --no-restore
         
       - name: Test TaskService
         run: dotnet test TaskSystem/TaskService.sln --no-build --verbosity normal
@@ -46,6 +52,9 @@ jobs:
 
       - name: Test UserService
         run: dotnet test UserService/UserService.sln --no-build --verbosity normal
+
+      - name: Test UserService
+        run: dotnet test NotificationService/NotificationService.sln --no-build --verbosity normal
 
       - name: Set up JDK 17 for SonarCloud
         uses: actions/setup-java@v4
@@ -84,5 +93,6 @@ jobs:
           dotnet build TaskSystem/TaskService.sln
           dotnet build UserService/UserService.sln
           dotnet build BoardService/BoardService.sln
+          dotnet build NotificationService/NotificationService.sln
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
