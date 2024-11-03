@@ -83,7 +83,7 @@ jobs:
           mkdir -p ./.sonar/scanner
           dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
 
-      # SonarCloud analysis for TaskService
+      # SonarCloud analysis for TaskSystem
       - name: SonarCloud Analysis for TaskService
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
