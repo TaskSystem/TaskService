@@ -20,16 +20,6 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development  # Zet de omgeving als Development (optioneel)
 
-  boardservice:
-    build:
-      context: ./BoardService/BoardService  # De map waar de Dockerfile en het projectbestand zich bevinden
-      dockerfile: Dockerfile  # De naam van de Dockerfile
-    ports:
-      - "5001:8080"  # Expose port 80 van de container naar port 5001 op de host
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development  # Zet de omgeving als Development (optioneel)
-
-
   userservice:
     build:
       context: ./UserService/UserService  # Pad naar je UserService directory

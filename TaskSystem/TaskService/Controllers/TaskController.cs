@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TaskService.DTO;
 using TaskService.Model;
 using TaskService.Repository;
 
@@ -122,6 +123,5 @@ namespace TaskService.Controllers
             var comments = _taskRepository.GetCommentsByTaskId(taskId);
             return Ok(comments);
         }
-
     }
 }

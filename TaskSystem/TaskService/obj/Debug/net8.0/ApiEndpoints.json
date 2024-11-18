@@ -1,5 +1,84 @@
 [
   {
+    "ContainingType": "TaskService.Controllers.BoardController",
+    "Method": "GetAllBoards",
+    "RelativePath": "api/Board",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TaskService.Controllers.BoardController",
+    "Method": "CreateBoard",
+    "RelativePath": "api/Board",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "boardDto",
+        "Type": "TaskService.DTO.CreatedBoardDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TaskService.Controllers.BoardController",
+    "Method": "GetBoardById",
+    "RelativePath": "api/Board/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TaskService.Controllers.BoardController",
+    "Method": "UpdateBoard",
+    "RelativePath": "api/Board/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "boardDto",
+        "Type": "TaskService.DTO.UpdatedBoardDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "TaskService.Controllers.BoardController",
+    "Method": "DeleteBoard",
+    "RelativePath": "api/Board/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "TaskService.Controllers.TaskController",
     "Method": "GetAllTasks",
     "RelativePath": "api/Task",

@@ -1,4 +1,5 @@
-﻿using TaskService.Model;
+﻿using TaskService.DTO;
+using TaskService.Model;
 
 namespace TaskService.Repository
 {
@@ -15,7 +16,12 @@ namespace TaskService.Repository
 
         IEnumerable<Comment> GetCommentsByTaskId(Guid taskId);
 
-
+        IEnumerable<Board> GetAllBoards(); // Voeg deze regel toe
+        Board GetBoardById(int id);
+        Board GetBoardByName(string name);
+        void AddBoard(CreatedBoardDTO boardDto);
+        void DeleteBoard(int id);
+        void UpdateBoard(int id, UpdatedBoardDTO boardDto);
 
     }
 }
