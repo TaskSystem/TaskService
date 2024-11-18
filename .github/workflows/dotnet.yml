@@ -26,8 +26,6 @@ jobs:
       - name: Restore dependencies for TaskService
         run: dotnet restore TaskSystem/TaskService.sln
 
-      - name: Restore dependencies for BoardService
-        run: dotnet restore BoardService/BoardService.sln
 
       - name: Restore dependencies for UserService
         run: dotnet restore UserService/UserService.sln
@@ -39,8 +37,6 @@ jobs:
       - name: Build TaskService
         run: dotnet build TaskSystem/TaskService.sln --no-restore
 
-      - name: Build BoardService
-        run: dotnet build BoardService/BoardService.sln --no-restore
 
       - name: Build UserService
         run: dotnet build UserService/UserService.sln --no-restore
@@ -52,8 +48,6 @@ jobs:
       - name: Test TaskService
         run: dotnet test TaskSystem/TaskService.sln --no-build --verbosity normal
 
-      - name: Test BoardService
-        run: dotnet test BoardService/BoardService.sln --no-build --verbosity normal
 
       - name: Test UserService
         run: dotnet test UserService/UserService.sln --no-build --verbosity normal
@@ -66,20 +60,16 @@ jobs:
         run: |
           docker build -t zakaria469980/taskservice-taskservice:latest ./TaskSystem/TaskService
 
-      # Docker image bouwen voor BoardService
-      - name: Build Docker image for BoardService
-        run: |
-          docker build -t zakaria469980/boardservice:latest ./BoardService/BoardService
 
       # Docker image bouwen voor UserService
       - name: Build Docker image for UserService
         run: |
-          docker build -t zakaria469980/userservice:latest ./UserService/UserService
+          docker build -t zakaria469980/taskservice-userservice:latest ./UserService/UserService
 
       # Docker image bouwen voor NotificationService
       - name: Build Docker image for NotificationService
         run: |
-          docker build -t zakaria469980/notificationservice:latest ./NotificationService/NotificationService
+          docker build -t zakaria469980/taskservice-notificationservice:latest ./NotificationService/NotificationService
 
       # Log in bij Docker Hub
       - name: Login to Docker Hub
@@ -92,6 +82,5 @@ jobs:
       - name: Push Docker images to Docker Hub
         run: |
           docker push zakaria469980/taskservice-taskservice:latest
-          docker push zakaria469980/boardservice:latest
           docker push zakaria469980/userservice:latest
           docker push zakaria469980/notificationservice:latest
