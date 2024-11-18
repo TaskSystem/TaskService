@@ -58,7 +58,7 @@ jobs:
       # Docker image bouwen voor TaskService
       - name: Build Docker image for TaskService
         run: |
-          docker build -t zakaria469980/taskservice-taskservice:latest ./TaskSystem/TaskService
+          docker build -t zakaria469980/taskservice-taskservice:latest TaskSystem/TaskService/Dockerfile .
 
 
       # Docker image bouwen voor UserService
