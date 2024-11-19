@@ -88,5 +88,5 @@ jobs:
       - name: Push Docker images to Docker Hub
         run: |
           docker push zakaria469980/taskservice-taskservice:latest
-          docker push zakaria469980/userservice:latest
-          docker push zakaria469980/notificationservice:latest
+          docker push zakaria469980/taskservice-userservice:latest
+          docker push zakaria469980/taskservice-notificationservice:latest
