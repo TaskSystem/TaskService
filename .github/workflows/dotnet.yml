@@ -81,7 +81,7 @@ jobs:
         run: |
           docker pull rabbitmq:3-management
           docker tag rabbitmq:3-management zakaria469980/rabbitmq-custom:latest
-          docker push zakaria469980/rabbitmq-custom:latest
+          
 
 
 
@@ -100,3 +100,4 @@ jobs:
           docker push zakaria469980/taskservice-taskservice:latest
           docker push zakaria469980/taskservice-userservice:latest
           docker push zakaria469980/taskservice-notificationservice:latest
+          docker push zakaria469980/rabbitmq-custom:latest
