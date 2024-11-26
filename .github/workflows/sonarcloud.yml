@@ -24,13 +24,13 @@ jobs:
         with:
           dotnet-version: '6.0'  # Vervang door de versie die je gebruikt, bv. 7.0, 5.0, etc.
 
-      # Stap 3: Restore de dependencies
+      # Stap 3: Restore dependencies voor de oplossing TaskService.sln
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore TaskSystem/TaskService.sln  # Geef het pad naar je .sln bestand op
 
-      # Stap 4: Bouw het project
-      - name: Build project
-        run: dotnet build --no-restore
+      # Stap 4: Bouw de oplossing TaskService.sln
+      - name: Build TaskService
+        run: dotnet build TaskSystem/TaskService.sln --no-restore  # Bouw de oplossing
 
       # Stap 5: Voer de SonarCloud-analyse uit
       - name: Run SonarCloud analysis
