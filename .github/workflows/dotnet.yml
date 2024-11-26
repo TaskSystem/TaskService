@@ -94,6 +94,17 @@ jobs:
         run: |
           docker build -t zakaria469980/taskservice-notificationservice:latest ./NotificationService/NotificationService
 
+       # Run Snyk vulnerability scan
+      - name: Run Snyk Vulnerability Scan on Docker images
+        run: |
+          # Authenticate with Snyk
+          echo ${{ secrets.SNYK_TOKEN }} | snyk auth
+          
+          # Scan Docker images
+          snyk container test ${{ secrets.DOCKER_USERNAME }}/taskservice-taskservice:latest
+          snyk container test zakaria469980/taskservice-userservice:latest
+          snyk container test zakaria469980/taskservice-notificationservice:latest
+
       - name: Push RabbitMQ image to Docker Hub
         run: |
           docker pull rabbitmq:3-management
