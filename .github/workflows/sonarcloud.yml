@@ -28,9 +28,15 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore TaskSystem/TaskService.sln 
 
+      - name: Restore dependencies
+        run: dotnet restore UserService/UserService.sln 
+
       # Stap 4: Bouw de oplossing TaskService.sln
       - name: Build TaskService
         run: dotnet build TaskSystem/TaskService.sln --no-restore  
+
+      - name: Build TaskService
+        run: dotnet build UserService/UserService.sln --no-restore  
 
       # Stap 5: Voer de SonarCloud-analyse uit
       - name: Run SonarCloud analysis
@@ -40,6 +46,16 @@ jobs:
             -Dsonar.projectKey=TaskSystem_TaskService  
             -Dsonar.organization=tasksystem  
             -Dsonar.sources=TaskSystem/TaskService  
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Run SonarCloud analysis
+        uses: SonarSource/sonarcloud-github-action@v2
+        with:
+          args: > 
+            -Dsonar.projectKey=TaskSystem_TaskService  
+            -Dsonar.organization=tasksystem  
+            -Dsonar.sources=UserService/UserService  
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
      
