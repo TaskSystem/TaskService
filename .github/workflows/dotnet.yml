@@ -46,7 +46,7 @@ jobs:
         run: dotnet build NotificationService/NotificationService.sln --no-restore
 
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions@v1
+        uses: snyk/actions/dotnet@master
         with:
           command: test
         env:
