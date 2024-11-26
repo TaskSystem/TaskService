@@ -38,7 +38,7 @@ jobs:
         with:
           args: > 
             -Dsonar.projectKey=TaskSystem_TaskService  
-            -Dsonar.organization=TaskSystem  
+            -Dsonar.organization=tasksystem  
             -Dsonar.sources=TaskSystem/TaskService  
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
