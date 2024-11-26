@@ -16,6 +16,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: SonarCloud Setup
+        uses: sonarsource/sonarcloud-github-action@v2
+        with:
+          organization: ${{ secrets.SONAR_ORG }}  # Je SonarCloud organisatie naam
+          token: ${{ secrets.SONAR_TOKEN }}  # Je SonarCloud token
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
