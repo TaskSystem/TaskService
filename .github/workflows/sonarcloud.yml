@@ -40,5 +40,8 @@ jobs:
           token: ${{ secrets.SONAR_TOKEN }}  
           projectKey: TaskSystem_TaskService  
           projectName: TaskService  
+          args: > 
+            -Dsonar.projectKey=TaskSystem_TaskService  
+            -Dsonar.sources=TaskSystem/TaskService  
           
      
