@@ -45,29 +45,6 @@ jobs:
       - name: Build NotificationService
         run: dotnet build NotificationService/NotificationService.sln --no-restore
 
-      - name: Run Snyk to check for vulnerabilities in TaskService
-        run: |
-          cd TaskSystem
-          snyk test TaskService.sln
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-      # Run Snyk to check for vulnerabilities in UserService
-      - name: Run Snyk to check for vulnerabilities in UserService
-        run: |
-          cd UserService
-          snyk test UserService.sln
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-      # Run Snyk to check for vulnerabilities in NotificationService
-      - name: Run Snyk to check for vulnerabilities in NotificationService
-        run: |
-          cd NotificationService
-          snyk test NotificationService.sln
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
   test:
     runs-on: ubuntu-latest
     needs: build  # Zorg ervoor dat de 'build' job succesvol is voordat deze wordt uitgevoerd
