@@ -45,10 +45,20 @@ jobs:
       - name: Build NotificationService
         run: dotnet build NotificationService/NotificationService.sln --no-restore
 
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/dotnet@master
-        with:
-          command: test
+      - name: Run Snyk to check for vulnerabilities in TaskService
+        run: snyk test TaskSystem/TaskService.sln
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      # Run Snyk to check for vulnerabilities in UserService
+      - name: Run Snyk to check for vulnerabilities in UserService
+        run: snyk test UserService/UserService.sln
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      # Run Snyk to check for vulnerabilities in NotificationService
+      - name: Run Snyk to check for vulnerabilities in NotificationService
+        run: snyk test NotificationService/NotificationService.sln
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
