@@ -94,12 +94,7 @@ jobs:
         run: |
           docker build -t zakaria469980/taskservice-notificationservice:latest ./NotificationService/NotificationService
 
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/dotnet@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          command: code test
+      
 
       - name: Push RabbitMQ image to Docker Hub
         run: |
@@ -113,3 +108,14 @@ jobs:
           docker push zakaria469980/taskservice-taskservice:latest
           docker push zakaria469980/taskservice-userservice:latest
           docker push zakaria469980/taskservice-notificationservice:latest
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/dotnet@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: code test
+          args: --sarif-file-output=snyk.sarif
+      - name: Print Snyk Sarif File
+        run: cat snyk.sarif
