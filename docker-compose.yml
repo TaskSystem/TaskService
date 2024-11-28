@@ -1,5 +1,42 @@
 services:
 
+  postgres:
+    image: postgres:16.2
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      - app-network
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0.6
+    command: start
+    environment:
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_PORT: 9090
+      KC_HOSTNAME_STRICT_BACKCHANNEL: false
+      KC_HTTP_ENABLED: true
+      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_HEALTH_ENABLED: true
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres/${POSTGRES_DB}
+      KC_DB_USERNAME: ${POSTGRES_USER}
+      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - 9090:8080
+    restart: always
+    depends_on:
+      - postgres
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+    networks:
+      - app-network
+
   rabbitmq:
     image: "rabbitmq:3-management"
     ports:
@@ -10,6 +47,23 @@ services:
       interval: 30s
       timeout: 10s
       retries: 10
+    networks:
+      - app-network
+
+  
+  userservice:
+    build:
+      context: ./UserService
+      dockerfile: Dockerfile
+    ports:
+      - "5002:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - KEYCLOAK_URL=http://keycloak:8080
+    depends_on:
+      - keycloak
+    networks:
+      - app-network
 
   taskservice:
     build:
@@ -19,15 +73,19 @@ services:
       - "5000:8080"  # Expose port 80 van de container naar port 5000 op de host
     environment:
       - ASPNETCORE_ENVIRONMENT=Development  # Zet de omgeving als Development (optioneel)
+    networks:
+      - app-network
 
-  userservice:
+  boardservice:
     build:
-      context: ./UserService/UserService  # Pad naar je UserService directory
-      dockerfile: Dockerfile
+      context: ./BoardService/BoardService  # De map waar de Dockerfile en het projectbestand zich bevinden
+      dockerfile: Dockerfile  # De naam van de Dockerfile
     ports:
-      - "5002:8080"  # Poort configuratie, pas aan als dat nodig is
+      - "5001:8080"  # Expose port 80 van de container naar port 5000 op de host
     environment:
       - ASPNETCORE_ENVIRONMENT=Development  # Zet de omgeving als Development (optioneel)
+    networks:
+      - app-network
 
   notificationservice:
     build:
@@ -37,9 +95,33 @@ services:
       - "5004:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - SENDGRID_API_KEY=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
+      - SENDGRID_API_KEY=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
     depends_on:
       - rabbitmq
+    networks:
+      - app-network
+
+  
+  gateway:
+    build:
+      context: ./Gateway/Gateway  
+      dockerfile: Dockerfile
+    ports:
+      - "5005:8080"  # Poort configuratie, pas aan als dat nodig is
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development  # Zet de omgeving als Development (optioneel)
+    networks:
+      - app-network
+  
+
+volumes:
+  postgres_data: {}   # Het ontbrekende volume voor PostgreSQL
+  keycloak_data: {}   # Volume voor Keycloak
+  rabbitmq_data: {}   # Volume voor RabbitMQ
+
+networks:
+  app-network:
+    driver: bridge
 
   
   
