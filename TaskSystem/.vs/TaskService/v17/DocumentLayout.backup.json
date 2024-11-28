@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|solutionrelative:taskservice\\controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|c:\\users\\zahas\\source\\repos\\taskservice\\tasksystem\\taskservice\\controllers\\boardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|solutionrelative:taskservice\\controllers\\boardcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|c:\\users\\zahas\\source\\repos\\taskservice\\tasksystem\\taskservice\\model\\board.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0486C70E-B7D9-4560-9452-11619390811B}|TaskService\\TaskService.csproj|solutionrelative:taskservice\\model\\board.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -54,11 +58,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
+              "Title": "BoardController.cs",
+              "DocumentMoniker": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Controllers\\BoardController.cs",
+              "RelativeDocumentMoniker": "TaskService\\Controllers\\BoardController.cs",
+              "ToolTip": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Controllers\\BoardController.cs",
+              "RelativeToolTip": "TaskService\\Controllers\\BoardController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T13:49:23.541Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "ITaskRepository.cs",
               "DocumentMoniker": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Repository\\ITaskRepository.cs",
               "RelativeDocumentMoniker": "TaskService\\Repository\\ITaskRepository.cs",
@@ -77,14 +94,14 @@
               "RelativeDocumentMoniker": "TaskService\\Controllers\\TaskController.cs",
               "ToolTip": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Controllers\\TaskController.cs",
               "RelativeToolTip": "TaskService\\Controllers\\TaskController.cs",
-              "ViewState": "AgIAAIoAAAAAAAAAAAAmwJIAAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAswH0AAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-24T21:14:10.137Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Board.cs",
               "DocumentMoniker": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Model\\Board.cs",
               "RelativeDocumentMoniker": "TaskService\\Model\\Board.cs",
@@ -97,7 +114,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "TaskRepository.cs",
               "DocumentMoniker": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Repository\\TaskRepository.cs",
               "RelativeDocumentMoniker": "TaskService\\Repository\\TaskRepository.cs",
@@ -110,7 +127,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "CreatedBoardDTO.cs",
               "DocumentMoniker": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\DTO\\CreatedBoardDTO.cs",
               "RelativeDocumentMoniker": "TaskService\\DTO\\CreatedBoardDTO.cs",
@@ -123,7 +140,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "TaskCreatedEvent.cs",
               "DocumentMoniker": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Model\\TaskCreatedEvent.cs",
               "RelativeDocumentMoniker": "TaskService\\Model\\TaskCreatedEvent.cs",
@@ -136,7 +153,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "PublisherService.cs",
               "DocumentMoniker": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\PublishRMQ\\PublisherService.cs",
               "RelativeDocumentMoniker": "TaskService\\PublishRMQ\\PublisherService.cs",
@@ -149,7 +166,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "Dockerfile",
               "DocumentMoniker": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Dockerfile",
               "RelativeDocumentMoniker": "TaskService\\Dockerfile",
@@ -162,7 +179,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Program.cs",
               "RelativeDocumentMoniker": "TaskService\\Program.cs",
@@ -175,7 +192,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\appsettings.json",
               "RelativeDocumentMoniker": "TaskService\\appsettings.json",
@@ -188,7 +205,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\Users\\ZAHas\\source\\repos\\TaskService\\TaskSystem\\TaskService\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "TaskService\\Properties\\launchSettings.json",
