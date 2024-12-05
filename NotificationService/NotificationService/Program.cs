@@ -2,9 +2,7 @@ using NotificationService;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure SendGrid API Key and other environment variables
-var sendGridApiKey = builder.Configuration["SENDGRID_API_KEY"];
-builder.Services.AddSingleton(new EmailService(sendGridApiKey));
+
 
 // Register the NotificationService as a hosted service
 builder.Services.AddHostedService<NotificationService.NotificationService>();
