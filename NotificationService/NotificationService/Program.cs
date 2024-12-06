@@ -1,6 +1,10 @@
 using NotificationService;
+using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Laad het .env-bestand
+Env.Load();
 
 // Configure SendGrid API Key and other environment variables
 var sendGridApiKey = builder.Configuration["SENDGRID_API_KEY"];
