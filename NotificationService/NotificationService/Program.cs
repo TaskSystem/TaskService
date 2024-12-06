@@ -4,6 +4,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Configure SendGrid API Key and other environment variables
 var sendGridApiKey = builder.Configuration["SENDGRID_API_KEY"];
+if (string.IsNullOrEmpty(sendGridApiKey))
+{
+    throw new Exception("SendGrid API Key is not configured. Set it as an environment variable or in appsettings.json.");
+}
 builder.Services.AddSingleton(new EmailService(sendGridApiKey));
 
 // Register the NotificationService as a hosted service
