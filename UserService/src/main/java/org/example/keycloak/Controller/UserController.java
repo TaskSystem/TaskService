@@ -1,5 +1,6 @@
 package org.example.keycloak.Controller;
 
+import org.example.keycloak.Model.DeleteRequest;
 import org.example.keycloak.Model.LoginRequest;
 import org.example.keycloak.Model.UserDTO;
 import org.example.keycloak.services.JwtTokenProvider;
@@ -8,10 +9,9 @@ import org.example.keycloak.services.UserCreation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 
 @RestController
@@ -24,6 +24,8 @@ public class UserController {
 
     @Autowired
     private KeyCloakService keycloakService;
+
+    //private UserInfo userInfoo;
 
     @Autowired
     public UserController(UserCreation userCreation) {
@@ -58,4 +60,40 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Exception occurred");
         }
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteUser(@RequestBody DeleteRequest deleteUserRequest) {
+        try {
+            UUID userId = deleteUserRequest.getUserId();
+
+            System.out.println("Received DELETE request for userId: " + userId);
+            System.out.println("Authorization Header: " + deleteUserRequest);
+            boolean success = keycloakService.deleteUser(userId);
+            if (success) {
+                return ResponseEntity.ok("User deleted successfully");
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete user");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred while deleting user");
+        }
+    }
+
+   /* @GetMapping("userinfo")
+    public ResponseEntity<UserDTO> getUserInfo() {
+        try {
+            String userId = userInfoo.getAuthenticatedUserId();
+
+            UserDTO userInfo = userInfoo.getUserInfo(userId);
+
+            if (userInfo != null) {
+                return ResponseEntity.ok(userInfo);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }*/
 }

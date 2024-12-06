@@ -1,4 +1,13 @@
 {
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5005",
+    "RateLimitOptions": {
+      "DisableRateLimitHeaders": false,
+      "QuotaExceededMessage": "Too many requests.",
+      "HttpStatusCode": 429,
+      "ClientIdHeader": "ClientId"
+    }
+  },
   "Routes": [
     {
       "DownstreamPathTemplate": "/api/Board",
@@ -9,8 +18,18 @@
           "Port": 8080
         }
       ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
       "UpstreamPathTemplate": "/api/Board",
-      "UpstreamHttpMethod": [ "POST", "GET" ]
+      "UpstreamHttpMethod": [ "POST", "GET" ],
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 3
+      }
     },
     {
       "DownstreamPathTemplate": "/api/Board/{id}",
@@ -21,13 +40,21 @@
           "Port": 8080
         }
       ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
       "UpstreamPathTemplate": "/api/Board/{id}",
-      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ],
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 3
+      }
     },
-
-
     {
-      "DownstreamPathTemplate": "/api/Task",
+      "DownstreamPathTemplate": "/api/Task/",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
@@ -35,8 +62,18 @@
           "Port": 8080
         }
       ],
-      "UpstreamPathTemplate": "/api/Task",
-      "UpstreamHttpMethod": [ "POST", "GET" ]
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "UpstreamPathTemplate": "/api/Task/",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 3
+      }
     },
     {
       "DownstreamPathTemplate": "/api/Task/{id}",
@@ -47,25 +84,67 @@
           "Port": 8080
         }
       ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
       "UpstreamPathTemplate": "/api/Task/{id}",
-      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ],
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 3
+      }
     },
-
-
     {
-      "DownstreamPathTemplate": "/user/{everything}",
+      "DownstreamPathTemplate": "/user/login",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "userservice",
-          "Port": 8080
+          "Port": 9091
         }
       ],
-      "UpstreamPathTemplate": "/user/{everything}",
-      "UpstreamHttpMethod": [ "POST", "GET", "DELETE", "PUT" ]
+      "UpstreamPathTemplate": "/user/login",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/user/register",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "userservice",
+          "Port": 9091
+        }
+      ],
+      "UpstreamPathTemplate": "/user/register",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/user/delete",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "userservice",
+          "Port": 9091
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "AddHeadersToRequest": {
+        "Authorization": "Bearer {Token}"
+      },
+      "UpstreamPathTemplate": "/user/delete",
+      "UpstreamHttpMethod": [ "DELETE" ],
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 3
+      }
     }
-  ],
-  "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5005"
-  }
+  ]
 }
