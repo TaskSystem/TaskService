@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: taskservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: taskservice
+  template:
+    metadata:
+      labels:
+        app: taskservice
+    spec:
+      containers:
+      - name: taskservice
+        image: zakaria469980/taskservice-taskservice:latest  # Gebruik de juiste naam van de image
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Development"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: taskservice
+spec:
+  ports:
+    - port: 5000
+      targetPort: 8080
+  selector:
+    app: taskservice

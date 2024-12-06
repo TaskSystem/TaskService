@@ -1,0 +1,175 @@
+{
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5005",
+    "RateLimitOptions": {
+      "DisableRateLimitHeaders": false,
+      "QuotaExceededMessage": "Too many requests.",
+      "HttpStatusCode": 429,
+      "ClientIdHeader": "ClientId"
+    }
+  },
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/Board",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "boardservice",
+          "Port": 8080
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "UpstreamPathTemplate": "/api/Board",
+      "UpstreamHttpMethod": [ "POST", "GET" ],
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 3
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/Board/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "boardservice",
+          "Port": 8080
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "UpstreamPathTemplate": "/api/Board/{id}",
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ],
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 3
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/Task/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "taskservice",
+          "Port": 8080
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "AddHeadersToRequest": {
+        "Authorization": "Bearer {Token}"
+      },
+      "UpstreamPathTemplate": "/api/Task/",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 3
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/Task/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "taskservice",
+          "Port": 8080
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "UpstreamPathTemplate": "/api/Task/{id}",
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ],
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 3
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/Task/user-in-comments/{userId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "taskservice",
+          "Port": 8080
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "UpstreamPathTemplate": "/api/Task/user-in-comments/{userId}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 3
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/user/login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "userservice",
+          "Port": 9091
+        }
+      ],
+      "UpstreamPathTemplate": "/user/login",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/user/register",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "userservice",
+          "Port": 9091
+        }
+      ],
+      "UpstreamPathTemplate": "/user/register",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/user/delete",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "userservice",
+          "Port": 9091
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "AddHeadersToRequest": {
+        "Authorization": "Bearer {Token}"
+      },
+      "UpstreamPathTemplate": "/user/delete",
+      "UpstreamHttpMethod": [ "DELETE" ],
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 3
+      }
+    }
+  ]
+}

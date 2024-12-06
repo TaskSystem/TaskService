@@ -123,5 +123,30 @@ namespace TaskService.Controllers
             var comments = _taskRepository.GetCommentsByTaskId(taskId);
             return Ok(comments);
         }
+
+        [HttpGet("user-in-comments/{userId}")]
+        public IActionResult GetTasksByUserIdInComments(Guid userId)
+        {
+            var tasks = _taskRepository.GetTasksByUserIdInComments(userId);
+            if (!tasks.Any())
+            {
+                return NotFound($"Geen taken gevonden voor userId in comments: {userId}");
+            }
+            return Ok(tasks);
+        }
+
+        [HttpDelete("delete-by-user/{userId}")]
+        public IActionResult DeleteTasksByUserId(Guid userId)
+        {
+            var tasks = _taskRepository.GetTasksByUserIdInComments(userId);
+            if (!tasks.Any())
+            {
+                return NotFound($"Geen taken gevonden gekoppeld aan UserId: {userId}");
+            }
+
+            _taskRepository.DeleteTasksByUserId(userId);
+            Console.WriteLine($"[Controller] Taken succesvol verwijderd voor UserId: {userId}");
+            return NoContent();
+        }
     }
 }

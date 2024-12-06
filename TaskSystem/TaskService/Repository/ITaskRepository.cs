@@ -12,16 +12,14 @@ namespace TaskService.Repository
         void UpdateTask(TaskModel task);
         void DeleteTask(Guid id);
 
+        void DeleteTasksByUserId(Guid userId);
+
         void AddCommentToTask(Guid taskId, Comment comment);
 
         IEnumerable<Comment> GetCommentsByTaskId(Guid taskId);
 
-        IEnumerable<Board> GetAllBoards(); // Voeg deze regel toe
-        Board GetBoardById(int id);
-        Board GetBoardByName(string name);
-        void AddBoard(CreatedBoardDTO boardDto);
-        void DeleteBoard(int id);
-        void UpdateBoard(int id, UpdatedBoardDTO boardDto);
+        IEnumerable<TaskModel> GetTasksByUserIdInComments(Guid userId);
+
 
     }
 }
