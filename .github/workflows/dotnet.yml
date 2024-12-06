@@ -1,4 +1,4 @@
-name: .NET CI/CD with SonarCloud
+name: CI/CD with SonarCloud
 
 on:
   push:
@@ -25,25 +25,35 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      # Restore dependencies voor alle services
+      # Setup Java (voor UserService)
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # Restore dependencies voor .NET-services
       - name: Restore dependencies for TaskService
         run: dotnet restore TaskSystem/TaskService.sln
 
-      - name: Restore dependencies for UserService
-        run: dotnet restore UserService/UserService.sln
-
       - name: Restore dependencies for NotificationService
         run: dotnet restore NotificationService/NotificationService.sln
+
+      # Restore dependencies en build voor UserService (Java)
+      - name: Restore dependencies for UserService (Java)
+        run: mvn dependency:resolve
+        working-directory: UserService
 
       # Build alle services
       - name: Build TaskService
         run: dotnet build TaskSystem/TaskService.sln --no-restore
 
-      - name: Build UserService
-        run: dotnet build UserService/UserService.sln --no-restore
-
       - name: Build NotificationService
         run: dotnet build NotificationService/NotificationService.sln --no-restore
+
+      - name: Build UserService (Java)
+        run: mvn clean package
+        working-directory: UserService
 
   test:
     runs-on: ubuntu-latest
@@ -58,11 +68,12 @@ jobs:
       - name: Test TaskService
         run: dotnet test TaskSystem/TaskService.sln --no-build --verbosity normal
 
-      - name: Test UserService
-        run: dotnet test UserService/UserService.sln --no-build --verbosity normal
-
       - name: Test NotificationService
         run: dotnet test NotificationService/NotificationService.sln --no-build --verbosity normal
+
+      - name: Test UserService (Java)
+        run: mvn test
+        working-directory: UserService
 
   docker_push:
     runs-on: ubuntu-latest
@@ -86,15 +97,13 @@ jobs:
           docker build -t ${{ secrets.DOCKER_USERNAME }}/taskservice-taskservice:latest \
           -f TaskSystem/TaskService/Dockerfile TaskSystem/
 
-      - name: Build Docker image for UserService
+      - name: Build Docker image for UserService (Java)
         run: |
-          docker build -t zakaria469980/taskservice-userservice:latest ./UserService/UserService
+          docker build -t zakaria469980/taskservice-userservice:latest ./UserService
 
       - name: Build Docker image for NotificationService
         run: |
           docker build -t zakaria469980/taskservice-notificationservice:latest ./NotificationService/NotificationService
-
-      
 
       - name: Push RabbitMQ image to Docker Hub
         run: |
