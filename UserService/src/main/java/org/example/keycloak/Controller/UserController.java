@@ -1,8 +1,10 @@
 package org.example.keycloak.Controller;
 
+import com.rabbitmq.client.Channel;
 import org.example.keycloak.Model.DeleteRequest;
 import org.example.keycloak.Model.LoginRequest;
 import org.example.keycloak.Model.UserDTO;
+import org.example.keycloak.config.RabbitMQConfig;
 import org.example.keycloak.services.JwtTokenProvider;
 import org.example.keycloak.services.KeyCloakService;
 import org.example.keycloak.services.UserCreation;
@@ -25,11 +27,14 @@ public class UserController {
     @Autowired
     private KeyCloakService keycloakService;
 
+    private final RabbitMQConfig rabbitMQConfig;
+
     //private UserInfo userInfoo;
 
     @Autowired
-    public UserController(UserCreation userCreation) {
+    public UserController(UserCreation userCreation, RabbitMQConfig rabbitMQConfig) {
         this.userCreation = userCreation;
+        this.rabbitMQConfig = rabbitMQConfig;
     }
 
     @PostMapping("/register")
@@ -68,8 +73,20 @@ public class UserController {
 
             System.out.println("Received DELETE request for userId: " + userId);
             System.out.println("Authorization Header: " + deleteUserRequest);
+
             boolean success = keycloakService.deleteUser(userId);
             if (success) {
+                // RabbitMQ-logica
+                try {
+                    Channel channel = rabbitMQConfig.createChannel();
+                    String message = "{\"userId\":\"" + userId + "\"}";
+                    channel.basicPublish("user.exchange", "", null, message.getBytes());
+                    System.out.println("Verwijderbericht verzonden naar RabbitMQ: " + message);
+                } catch (Exception e) {
+                    System.err.println("RabbitMQ bericht verzenden mislukt: " + e.getMessage());
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("User deleted but RabbitMQ failed.");
+                }
+
                 return ResponseEntity.ok("User deleted successfully");
             } else {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete user");

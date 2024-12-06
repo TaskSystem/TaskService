@@ -42,6 +42,8 @@ services:
     ports:
       - "5672:5672"     # RabbitMQ protocol
       - "15672:15672"   # RabbitMQ Management UI
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:15672/api/health"]
       interval: 30s
@@ -74,6 +76,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development  # Zet de omgeving als Development (optioneel)
       - KEYCLOAK_AUTH_SERVER_URL=http://keycloak:8080 # Voeg dit expliciet toe
+    depends_on:
+      - rabbitmq
     networks:
       - app-network
 
@@ -115,7 +119,7 @@ services:
   
 
 volumes:
-  postgres_data: {}   # Het ontbrekende volume voor PostgreSQL
+  postgres_data: {}   # Volume voor PostgreSQL
   keycloak_data: {}   # Volume voor Keycloak
   rabbitmq_data: {}   # Volume voor RabbitMQ
   

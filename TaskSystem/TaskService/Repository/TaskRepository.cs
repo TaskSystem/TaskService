@@ -10,14 +10,20 @@ namespace TaskService.Repository
         private readonly List<Board> _boards = new List<Board>();
         private int _boardIdCounter = 1;
 
+        // --- Taken ---
+
         public IEnumerable<TaskModel> GetAllTasks() => _tasks;
 
         public TaskModel GetTaskById(Guid id) => _tasks.FirstOrDefault(t => t.Id == id);
+
+        public IEnumerable<TaskModel> GetTasksByUserId(string userId) =>
+            _tasks.Where(t => t.AssignedUser == userId);
+
         public void AddTask(TaskModel task)
         {
             task.Id = Guid.NewGuid();
             _tasks.Add(task);
-
+            Console.WriteLine($"Taak toegevoegd: {task.Title} (ID: {task.Id}, UserId: {task.AssignedUser})");
         }
 
         public void DeleteTask(Guid id)
@@ -26,19 +32,31 @@ namespace TaskService.Repository
             if (task != null)
             {
                 _tasks.Remove(task);
+                Console.WriteLine($"Taak verwijderd: {task.Title} (ID: {task.Id})");
             }
         }
 
+        public void DeleteTasksByUserId(Guid userId)
+        {
+            var tasksToDelete = _tasks.Where(task => task.Comments.Any(comment => comment.UserId == userId)).ToList();
+            foreach (var task in tasksToDelete)
+            {
+                _tasks.Remove(task);
+                Console.WriteLine($"Taak verwijderd: {task.Title} (ID: {task.Id}) gekoppeld aan UserId: {userId}");
+            }
+        }
 
         public void UpdateTask(TaskModel updatedTask)
         {
             TaskModel existingTask = GetTaskById(updatedTask.Id);
-            if (existingTask != null) 
-            { 
+            if (existingTask != null)
+            {
                 existingTask.Title = updatedTask.Title;
                 existingTask.Description = updatedTask.Description;
-                existingTask.AssignedUser = updatedTask.AssignedUser;   
+                existingTask.AssignedUser = updatedTask.AssignedUser;
                 existingTask.IsCompleted = updatedTask.IsCompleted;
+
+                Console.WriteLine($"Taak bijgewerkt: {existingTask.Title} (ID: {existingTask.Id})");
             }
         }
 
@@ -47,10 +65,12 @@ namespace TaskService.Repository
             var task = GetTaskById(taskId);
             if (task != null)
             {
-                comment.Id = Guid.NewGuid();  // Genereer een unieke ID voor de comment
+                comment.Id = Guid.NewGuid(); // Genereer een unieke ID voor de comment
                 comment.TaskId = taskId;
                 comment.CreatedAt = DateTime.UtcNow;
                 task.Comments.Add(comment);
+
+                Console.WriteLine($"Comment toegevoegd aan taak: {task.Title} (Task ID: {task.Id})");
             }
         }
 
@@ -60,45 +80,9 @@ namespace TaskService.Repository
             return task?.Comments ?? Enumerable.Empty<Comment>();
         }
 
-
-        public IEnumerable<Board> GetAllBoards() => _boards;
-
-        public Board GetBoardById(int id) => _boards.FirstOrDefault(b => b.Id == id);
-
-        public Board GetBoardByName(string name) => _boards.FirstOrDefault(b => b.Title.Equals(name, StringComparison.OrdinalIgnoreCase));
-
-        public void AddBoard(CreatedBoardDTO boardDto)
+        public IEnumerable<TaskModel> GetTasksByUserIdInComments(Guid userId)
         {
-            var newBoard = new Board
-            {
-                Id = _boardIdCounter++,
-                Title = boardDto.Title,
-                Description = boardDto.Description,
-                CreatedDate = DateTime.UtcNow,
-                UpdatedDate = DateTime.UtcNow
-            };
-            _boards.Add(newBoard);
+            return _tasks.Where(t => t.Comments.Any(c => c.UserId == userId));
         }
-
-        public void DeleteBoard(int id)
-        {
-            var board = GetBoardById(id);
-            if (board != null)
-            {
-                _boards.Remove(board);
-            }
-        }
-
-        public void UpdateBoard(int id, UpdatedBoardDTO boardDto)
-        {
-            var board = GetBoardById(id);
-            if (board != null)
-            {
-                board.Title = boardDto.Title;
-                board.Description = boardDto.Description;
-                board.UpdatedDate = DateTime.UtcNow;
-            }
-        }
-
     }
 }

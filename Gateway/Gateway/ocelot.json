@@ -66,6 +66,9 @@
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       },
+      "AddHeadersToRequest": {
+        "Authorization": "Bearer {Token}"
+      },
       "UpstreamPathTemplate": "/api/Task/",
       "UpstreamHttpMethod": [ "GET", "POST" ],
       "RateLimitOptions": {
@@ -90,6 +93,28 @@
       },
       "UpstreamPathTemplate": "/api/Task/{id}",
       "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ],
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 3
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/Task/user-in-comments/{userId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "taskservice",
+          "Port": 8080
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "UpstreamPathTemplate": "/api/Task/user-in-comments/{userId}",
+      "UpstreamHttpMethod": [ "GET" ],
       "RateLimitOptions": {
         "EnableRateLimiting": true,
         "Period": "1s",
