@@ -16,4 +16,6 @@ WORKDIR /app
 COPY --from=build-env /app/out ./  
 
 # Stel de startcommando in
-ENTRYPOINT ["dotnet", "BoardService.dll"]  
+ENTRYPOINT ["dotnet", "BoardService.dll"] 
+CMD ["sh", "-c", "dotnet BoardService.dll; dotnet ef database update"]
+

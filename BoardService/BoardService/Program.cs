@@ -20,8 +20,11 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseInMemoryDatabase("TaskBoardDB"));  // Gebruik een echte SQL database als nodig.
+builder.Services.AddDbContext<BoardContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+Console.WriteLine($"Using connection string: {builder.Configuration.GetConnectionString("DefaultConnection")}");
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -35,6 +38,37 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Retry logica bij opstarten
+var maxRetries = 15;
+var delay = TimeSpan.FromSeconds(5);
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<BoardContext>();
+
+    for (int attempt = 1; attempt <= maxRetries; attempt++)
+    {
+        try
+        {
+            Console.WriteLine($"Attempt {attempt}: Trying to connect to the database...");
+            context.Database.Migrate(); // Voer migraties uit
+            Console.WriteLine("Database connection successful.");
+            break; // Verlaat de loop als het lukt
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Database connection failed: {ex.Message}");
+            if (attempt == maxRetries)
+            {
+                throw; // Stop als alle pogingen zijn mislukt
+            }
+            System.Threading.Thread.Sleep(delay);
+        }
+    }
+}
+
 
 app.UseHttpsRedirection();
 

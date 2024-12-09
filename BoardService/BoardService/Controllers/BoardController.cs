@@ -11,10 +11,10 @@ namespace BoardService.Controllers
     [ApiController]
     public class BoardController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly BoardContext _context;
         //private readonly PublisherToRMQ _publisher;
 
-        public BoardController(ApplicationDbContext context, PublisherToRMQ publisherToRMQ)
+        public BoardController(BoardContext context, PublisherToRMQ publisherToRMQ)
         {
             _context = context;
             //_publisher = publisherToRMQ; // Instantie van de publisher

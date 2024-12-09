@@ -11,6 +11,25 @@ services:
     networks:
       - app-network
 
+  postgres_board:
+    image: postgres:16.2
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgresadmin
+      POSTGRES_DB: boardservice
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_board_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+
   keycloak:
     image: quay.io/keycloak/keycloak:23.0.6
     command: start
@@ -87,10 +106,16 @@ services:
       dockerfile: Dockerfile  # De naam van de Dockerfile
     ports:
       - "5001:8080"  # Expose port 80 van de container naar port 5000 op de host
+    depends_on:
+      postgres_board:
+        condition: service_healthy
     environment:
       - ASPNETCORE_ENVIRONMENT=Development  # Zet de omgeving als Development (optioneel)
+      - ConnectionStrings__DefaultConnection=Host=postgres_board;Port=5432;Database=boardservice;Username=postgres;Password=postgresadmin
     networks:
       - app-network
+
+  
 
   notificationservice:
     build:
@@ -121,6 +146,7 @@ services:
 
 volumes:
   postgres_data: {}   # Volume voor PostgreSQL
+  postgres_board_data: {}
   keycloak_data: {}   # Volume voor Keycloak
   rabbitmq_data: {}   # Volume voor RabbitMQ
   
