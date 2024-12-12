@@ -44,7 +44,7 @@ namespace TaskService.Controllers
         public IActionResult CreateTask([FromBody] TaskModel task)
         {
             if (task == null)
-                return BadRequest();
+                return BadRequest("Task is niet volledig ingevoerd");
             _taskRepository.AddTask(task);
 
 
@@ -87,28 +87,29 @@ namespace TaskService.Controllers
         }
 
         [HttpPatch("{id}/complete")]
-        public IActionResult CompleteTask(Guid id)
+        public async Task<IActionResult> CompleteTask(Guid id)
         {
-            var Task = _taskRepository.GetTaskById(id);
-            if (Task == null)
+            var task = await _taskRepository.GetTaskById(id);  // Gebruik de asynchrone versie
+            if (task == null)
                 return NotFound();
 
-            Task.IsCompleted = true;
-            _taskRepository.UpdateTask(Task);
+            task.IsCompleted = true;
+            await _taskRepository.UpdateTask(task);  // Gebruik de asynchrone versie voor update
             return NoContent();
         }
 
         [HttpPatch("{id}/adduser")]
-        public IActionResult AddUserToTask(Guid id, [FromBody] string username)
+        public async Task<IActionResult> AddUserToTask(Guid id, [FromBody] string username)
         {
-            var task = _taskRepository.GetTaskById(id);
-            if(task == null)
+            var task = await _taskRepository.GetTaskById(id);  // Asynchroon ophalen van de taak
+            if (task == null)
                 return NotFound();
 
             task.AssignedUser = username;
-            _taskRepository.UpdateTask(task);
+            await _taskRepository.UpdateTask(task);  // Asynchroon bijwerken van de taak
             return NoContent();
         }
+
 
         [HttpPost("{taskId}/comments")]
         public IActionResult AddCommentToTask(Guid taskId, [FromBody] Comment comment)
@@ -125,9 +126,9 @@ namespace TaskService.Controllers
         }
 
         [HttpGet("user-in-comments/{userId}")]
-        public IActionResult GetTasksByUserIdInComments(Guid userId)
+        public async Task<IActionResult> GetTasksByUserIdInComments(Guid userId)
         {
-            var tasks = _taskRepository.GetTasksByUserIdInComments(userId);
+            var tasks = await _taskRepository.GetTasksByUserIdInComments(userId);  // Asynchroon ophalen van taken
             if (!tasks.Any())
             {
                 return NotFound($"Geen taken gevonden voor userId in comments: {userId}");
@@ -135,10 +136,11 @@ namespace TaskService.Controllers
             return Ok(tasks);
         }
 
+
         [HttpDelete("delete-by-user/{userId}")]
-        public IActionResult DeleteTasksByUserId(Guid userId)
+        public async Task<IActionResult> DeleteTasksByUserId(Guid userId)
         {
-            var tasks = _taskRepository.GetTasksByUserIdInComments(userId);
+            var tasks = await _taskRepository.GetTasksByUserIdInComments(userId);
             if (!tasks.Any())
             {
                 return NotFound($"Geen taken gevonden gekoppeld aan UserId: {userId}");

@@ -61,16 +61,21 @@ namespace TaskService.PublishRMQ
             Console.ReadLine(); // Houd de consumer actief
         }
 
-        private void DeleteUserData(Guid userId)
+        private async Task DeleteUserData(Guid userId)
         {
             Console.WriteLine($"[Consumer] Verwijderen van taken waar userId {userId} in comments voorkomt");
-            var tasksBefore = _taskRepository.GetTasksByUserIdInComments(userId);
+
+            // Haal de taken asynchroon op
+            var tasksBefore = await _taskRepository.GetTasksByUserIdInComments(userId);
             Console.WriteLine($"[Consumer] Taken voor verwijdering: {tasksBefore.Count()}");
 
-            _taskRepository.DeleteTasksByUserId(userId);
+            // Verwijder de taken asynchroon
+            await _taskRepository.DeleteTasksByUserId(userId);
 
-            var tasksAfter = _taskRepository.GetTasksByUserIdInComments(userId);
+            // Haal de taken na verwijdering asynchroon op
+            var tasksAfter = await _taskRepository.GetTasksByUserIdInComments(userId);
             Console.WriteLine($"[Consumer] Taken na verwijdering: {tasksAfter.Count()}");
         }
+
     }
 }
