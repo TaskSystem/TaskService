@@ -1,6 +1,7 @@
 using Microsoft.OpenApi.Models;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Exceptions;
+using TaskService.MongoDB;
 using TaskService.PublishRMQ;
 using TaskService.Repository;
 
@@ -42,6 +43,9 @@ builder.Services.AddSingleton<IConnection>(sp =>
     throw new InvalidOperationException("RabbitMQ connection could not be established.");
 });
 
+
+builder.Services.AddSingleton<MongoDBService>();
+
 // Publisher en Consumer registreren
 builder.Services.AddSingleton<PublisherService>();
 builder.Services.AddSingleton<Consumer>();
@@ -49,6 +53,7 @@ builder.Services.AddSingleton<Consumer>();
 // Add services to the container.
 builder.Services.AddSingleton<ITaskRepository, TaskRepository>();
 builder.Services.AddControllers();
+
 
 
 // Swagger configuratie

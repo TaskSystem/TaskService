@@ -6,19 +6,32 @@ namespace TaskService.Repository
     public interface ITaskRepository
     {
 
-        IEnumerable<TaskModel> GetAllTasks();
-        TaskModel GetTaskById(Guid id);
-        void AddTask(TaskModel task);
-        void UpdateTask(TaskModel task);
-        void DeleteTask(Guid id);
+        // Verkrijg alle taken
+        Task<IEnumerable<TaskModel>> GetAllTasks();
 
-        void DeleteTasksByUserId(Guid userId);
+        // Verkrijg taak op basis van ID
+        Task<TaskModel> GetTaskById(Guid id);
 
-        void AddCommentToTask(Guid taskId, Comment comment);
+        // Voeg een taak toe
+        Task AddTask(TaskModel task);
 
-        IEnumerable<Comment> GetCommentsByTaskId(Guid taskId);
+        // Update een taak
+        Task UpdateTask(TaskModel task);
 
-        IEnumerable<TaskModel> GetTasksByUserIdInComments(Guid userId);
+        // Verwijder taak op basis van ID
+        Task DeleteTask(Guid id);
+
+        // Verwijder taken gekoppeld aan een gebruiker
+        Task DeleteTasksByUserId(Guid userId);
+
+        // Voeg comment toe aan taak
+        Task AddCommentToTask(Guid taskId, Comment comment);
+
+        // Verkrijg comments van een taak op basis van taak ID
+        Task<IEnumerable<Comment>> GetCommentsByTaskId(Guid taskId);
+
+        // Verkrijg taken gebaseerd op gebruiker ID in comments
+        Task<IEnumerable<TaskModel>> GetTasksByUserIdInComments(Guid userId);
 
 
     }

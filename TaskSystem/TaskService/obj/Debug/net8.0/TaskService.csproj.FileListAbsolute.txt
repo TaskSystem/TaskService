@@ -195,3 +195,9 @@ C:\Users\ZAHas\source\repos\TaskService\TaskSystem\TaskService\obj\Debug\net8.0\
 C:\Users\ZAHas\source\repos\TaskService\TaskSystem\TaskService\obj\Debug\net8.0\TaskService.genruntimeconfig.cache
 C:\Users\ZAHas\source\repos\TaskService\TaskSystem\TaskService\obj\Debug\net8.0\ref\TaskService.dll
 C:\Users\ZAHas\source\repos\TaskService\TaskSystem\TaskService\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\ZAHas\source\repos\TaskService\TaskSystem\TaskService\bin\Debug\net8.0\DnsClient.dll
+C:\Users\ZAHas\source\repos\TaskService\TaskSystem\TaskService\bin\Debug\net8.0\MongoDB.Bson.dll
+C:\Users\ZAHas\source\repos\TaskService\TaskSystem\TaskService\bin\Debug\net8.0\MongoDB.Driver.dll
+C:\Users\ZAHas\source\repos\TaskService\TaskSystem\TaskService\bin\Debug\net8.0\SharpCompress.dll
+C:\Users\ZAHas\source\repos\TaskService\TaskSystem\TaskService\bin\Debug\net8.0\Snappier.dll
+C:\Users\ZAHas\source\repos\TaskService\TaskSystem\TaskService\bin\Debug\net8.0\ZstdSharp.dll
