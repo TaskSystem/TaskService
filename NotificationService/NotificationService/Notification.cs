@@ -54,9 +54,7 @@ namespace NotificationService
 
                             if (taskCreatedEvent != null)
                             {
-                                await _emailService.SendEmailAsync(taskCreatedEvent.Email, "New Task Created!",
-                                    $"Hello, a new task '{taskCreatedEvent.TaskName}' was created!",
-                                    $"<strong>Hello, a new task '{taskCreatedEvent.TaskName}' was created!</strong>");
+                                await _emailService.CallCloudFunctionAsync(taskCreatedEvent.TaskName, taskCreatedEvent.Email);
                             }
                         }
                         catch (Exception ex)
