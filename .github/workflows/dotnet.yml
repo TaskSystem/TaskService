@@ -75,6 +75,11 @@ jobs:
         run: mvn test
         working-directory: UserService
 
+      # Health-check met Ngrok
+      - name: Health Check via Ngrok
+        run: |
+          curl -f https://ef01-62-250-39-117.ngrok-free.app/health || exit 1
+
   docker_push:
     runs-on: ubuntu-latest
     needs: test  # Zorg ervoor dat de 'test' job succesvol is voordat deze wordt uitgevoerd
