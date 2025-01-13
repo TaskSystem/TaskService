@@ -73,10 +73,10 @@ jobs:
 
       - name: Check Prometheus alerts
         run: |
-          response=$(curl -s http://localhost:9090/api/v1/alerts)
+          response=$(curl -s https://e539-62-250-39-117.ngrok-free.app/api/v1/alerts)
           if [[ $(echo $response | jq '.data.alerts | length') -gt 0 ]]; then
             echo "There are active alerts!"
-            exit 1  # Foutcode, zodat de pipeline faalt
+            exit 1  # Fail de pipeline
           else
             echo "No active alerts."
           fi
