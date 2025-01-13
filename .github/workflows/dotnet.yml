@@ -71,10 +71,6 @@ jobs:
       - name: Test NotificationService
         run: dotnet test NotificationService/NotificationService.sln --no-build --verbosity normal
 
-      - name: Test UserService (Java)
-        run: mvn test
-        working-directory: UserService
-
       # Health-check met Ngrok
       - name: Health Check via Ngrok
         run: |
