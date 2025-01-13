@@ -71,10 +71,15 @@ jobs:
       - name: Test NotificationService
         run: dotnet test NotificationService/NotificationService.sln --no-build --verbosity normal
 
-      # Health-check met Ngrok
-      - name: Health Check via Ngrok
+      - name: Check Prometheus alerts
         run: |
-          curl -f https://ef01-62-250-39-117.ngrok-free.app/health || exit 1
+          response=$(curl -s http://localhost:9090/api/v1/alerts)
+          if [[ $(echo $response | jq '.data.alerts | length') -gt 0 ]]; then
+            echo "There are active alerts!"
+            exit 1  # Foutcode, zodat de pipeline faalt
+          else
+            echo "No active alerts."
+          fi
 
   docker_push:
     runs-on: ubuntu-latest
@@ -98,10 +103,6 @@ jobs:
           docker build -t ${{ secrets.DOCKER_USERNAME }}/taskservice-taskservice:latest \
           -f TaskSystem/TaskService/Dockerfile TaskSystem/
 
-      - name: Build Docker image for UserService (Java)
-        run: |
-          docker build -t zakaria469980/taskservice-userservice:latest ./UserService
-
       - name: Build Docker image for NotificationService
         run: |
           docker build -t zakaria469980/taskservice-notificationservice:latest ./NotificationService/NotificationService
@@ -116,7 +117,6 @@ jobs:
       - name: Push Docker images to Docker Hub
         run: |
           docker push zakaria469980/taskservice-taskservice:latest
-          docker push zakaria469980/taskservice-userservice:latest
           docker push zakaria469980/taskservice-notificationservice:latest
 
       - name: Run Snyk to check for vulnerabilities
