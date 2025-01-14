@@ -129,3 +129,21 @@ jobs:
           args: --sarif-file-output=snyk.sarif
       - name: Print Snyk Sarif File
         run: cat snyk.sarif
+
+      # Deploy Docker images to Docker Desktop
+      - name: Deploy Docker images locally
+        run: |
+          # Stop and remove any running containers with the same name
+          docker rm -f taskservice notificationservice rabbitmq || true
+
+          # Run RabbitMQ container
+          docker run -d --name rabbitmq -p 15672:15672 -p 5672:5672 \
+          ${{ secrets.DOCKER_USERNAME }}/rabbitmq-custom:latest
+
+          # Run TaskService container
+          docker run -d --name taskservice -p 5001:80 \
+          ${{ secrets.DOCKER_USERNAME }}/taskservice-taskservice:latest
+
+          # Run NotificationService container
+          docker run -d --name notificationservice -p 5002:80 \
+          ${{ secrets.DOCKER_USERNAME }}/taskservice-notificationservice:latest
