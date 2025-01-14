@@ -4,6 +4,7 @@ using RabbitMQ.Client.Exceptions;
 using TaskService.MongoDB;
 using TaskService.PublishRMQ;
 using TaskService.Repository;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,9 @@ builder.Services.AddSingleton<ConnectionFactory>(sp => new ConnectionFactory
     UserName = "guest",
     Password = "guest"
 });
+
+// Voeg Prometheus metrics service toe
+builder.Services.AddMetrics();
 
 // Registreer de RabbitMQ IConnection als Singleton met Retry Mechanisme
 builder.Services.AddSingleton<IConnection>(sp =>
@@ -69,10 +73,38 @@ builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
+// Maak een aangepaste Prometheus-metric aan voor foutieve verzoeken
+var failedRequestCounter = Metrics.CreateCounter(
+    "custom_failed_requests_total",
+    "Aantal mislukte API-aanvragen."
+);
+
+// Middleware om foutieve verzoeken te registreren
+app.Use(async (context, next) =>
+{
+    try
+    {
+        await next();
+
+        // Verhoog de counter bij HTTP-statuscodes van 400 of hoger
+        if (context.Response.StatusCode >= 400)
+        {
+            failedRequestCounter.Inc();
+        }
+    }
+    catch
+    {
+        // Verhoog de counter ook bij exceptions
+        failedRequestCounter.Inc();
+        throw;
+    }
+});
+
 // Zorg ervoor dat routing is ingeschakeld
 app.UseRouting();
 
-
+// Exposeer /metrics endpoint
+app.MapMetrics();
 
 app.UseSwagger();
 app.UseSwaggerUI();

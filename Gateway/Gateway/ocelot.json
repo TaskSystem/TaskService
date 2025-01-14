@@ -1,12 +1,6 @@
 {
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:5005",
-    "RateLimitOptions": {
-      "DisableRateLimitHeaders": false,
-      "QuotaExceededMessage": "Too many requests.",
-      "HttpStatusCode": 429,
-      "ClientIdHeader": "ClientId"
-    }
+    "BaseUrl": "http://localhost:5005"
   },
   "Routes": [
     {
@@ -70,13 +64,7 @@
         "Authorization": "Bearer {Token}"
       },
       "UpstreamPathTemplate": "/api/Task/",
-      "UpstreamHttpMethod": [ "GET", "POST" ],
-      "RateLimitOptions": {
-        "EnableRateLimiting": true,
-        "Period": "1s",
-        "PeriodTimespan": 1,
-        "Limit": 3
-      }
+      "UpstreamHttpMethod": [ "GET", "POST" ]
     },
     {
       "DownstreamPathTemplate": "/api/Task/{id}",
@@ -92,13 +80,7 @@
         "AllowedScopes": []
       },
       "UpstreamPathTemplate": "/api/Task/{id}",
-      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ],
-      "RateLimitOptions": {
-        "EnableRateLimiting": true,
-        "Period": "1s",
-        "PeriodTimespan": 1,
-        "Limit": 3
-      }
+      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
     },
     {
       "DownstreamPathTemplate": "/api/Task/user-in-comments/{userId}",
@@ -114,13 +96,7 @@
         "AllowedScopes": []
       },
       "UpstreamPathTemplate": "/api/Task/user-in-comments/{userId}",
-      "UpstreamHttpMethod": [ "GET" ],
-      "RateLimitOptions": {
-        "EnableRateLimiting": true,
-        "Period": "1s",
-        "PeriodTimespan": 1,
-        "Limit": 3
-      }
+      "UpstreamHttpMethod": [ "GET" ]
     },
     {
       "DownstreamPathTemplate": "/user/login",

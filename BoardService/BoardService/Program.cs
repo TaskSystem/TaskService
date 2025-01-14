@@ -1,12 +1,16 @@
 using BoardService.DbContextApp;
 using BoardService.Messaging;
 using Microsoft.EntityFrameworkCore;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddSingleton<PublisherToRMQ>();
 builder.Services.AddControllers();
+
+// Voeg Prometheus metrics service toe
+builder.Services.AddMetrics();
 
 // Voeg CORS-configuratie toe
 builder.Services.AddCors(options =>
@@ -69,6 +73,9 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+
+// Exposeer /metrics endpoint
+app.MapMetrics();
 
 app.UseHttpsRedirection();
 

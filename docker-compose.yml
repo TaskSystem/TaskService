@@ -71,7 +71,28 @@ services:
     networks:
       - app-network
 
-  
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./bearertoken.txt:/etc/prometheus/bearertoken.txt  # Mount de bearertoken.txt in de container
+    networks:
+      - app-network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - app-network
+
   userservice:
     build:
       context: ./UserService
@@ -88,13 +109,13 @@ services:
 
   taskservice:
     build:
-      context: ./TaskSystem  # De map waar de Dockerfile en het projectbestand zich bevinden
-      dockerfile: TaskService/Dockerfile  # De naam van de Dockerfile
+      context: ./TaskSystem
+      dockerfile: TaskService/Dockerfile
     ports:
-      - "5000:8080"  # Expose port 80 van de container naar port 5000 op de host
+      - "5000:8080"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development  # Zet de omgeving als Development (optioneel)
-      - KEYCLOAK_AUTH_SERVER_URL=http://keycloak:8080 # Voeg dit expliciet toe
+      - ASPNETCORE_ENVIRONMENT=Development
+      - KEYCLOAK_AUTH_SERVER_URL=http://keycloak:8080
     depends_on:
       - rabbitmq
     networks:
@@ -102,20 +123,18 @@ services:
 
   boardservice:
     build:
-      context: ./BoardService/BoardService  # De map waar de Dockerfile en het projectbestand zich bevinden
-      dockerfile: Dockerfile  # De naam van de Dockerfile
+      context: ./BoardService/BoardService
+      dockerfile: Dockerfile
     ports:
-      - "5001:8080"  # Expose port 80 van de container naar port 5000 op de host
+      - "5001:8080"
     depends_on:
       postgres_board:
         condition: service_healthy
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development  # Zet de omgeving als Development (optioneel)
+      - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Host=postgres_board;Port=5432;Database=boardservice;Username=postgres;Password=postgresadmin
     networks:
       - app-network
-
-  
 
   notificationservice:
     build:
@@ -131,29 +150,31 @@ services:
     networks:
       - app-network
 
-  
   gateway:
     build:
-      context: ./Gateway/Gateway  
+      context: ./Gateway/Gateway
       dockerfile: Dockerfile
     ports:
-      - "5005:8080"  # Poort configuratie, pas aan als dat nodig is
+      - "5005:8080"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development  # Zet de omgeving als Development (optioneel)
+      - ASPNETCORE_ENVIRONMENT=Development
     networks:
       - app-network
-  
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: alertmanager
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
 
 volumes:
   postgres_data: {}   # Volume voor PostgreSQL
   postgres_board_data: {}
   keycloak_data: {}   # Volume voor Keycloak
   rabbitmq_data: {}   # Volume voor RabbitMQ
-  
 
 networks:
   app-network:
     driver: bridge
-
-  
-  

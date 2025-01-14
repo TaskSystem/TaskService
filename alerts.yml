@@ -1,0 +1,38 @@
+groups:
+  - name: API Alerts
+    rules:
+      - alert: HighAPIResponseTime
+        expr: histogram_quantile(0.95, rate(api_response_time_seconds_bucket[5m])) > 0.2
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Hoge API-responstijd gedetecteerd"
+          description: "95% van de API-aanvragen duren langer dan 200 ms."
+
+      - alert: HighErrorRate
+        expr: rate(api_errors_total[5m]) / rate(api_requests_total[5m]) > 0.01
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Hoge foutpercentages gedetecteerd"
+          description: "Meer dan 1% van de API-aanvragen resulteert in fouten."
+
+      - alert: HighCPUUsage
+        expr: avg(node_cpu_seconds_total{mode!="idle"}[5m]) > 0.8
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Hoge CPU-belasting"
+          description: "Server CPU-gebruik is boven 80%."
+
+      - alert: HighMemoryUsage
+        expr: node_memory_Active_bytes / node_memory_MemTotal_bytes > 0.75
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Hoge geheugengebruik"
+          description: "Server geheugengebruik is boven 75%."

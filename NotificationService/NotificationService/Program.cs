@@ -1,5 +1,6 @@
 using NotificationService;
 using DotNetEnv;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,9 @@ builder.Services.AddSingleton(new EmailService(sendGridApiKey));
 // Register the NotificationService as a hosted service
 builder.Services.AddHostedService<NotificationService.NotificationService>();
 
+// Voeg Prometheus metrics service toe
+builder.Services.AddMetrics();
+
 // Add services to the container
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -30,6 +34,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Exposeer /metrics endpoint
+app.MapMetrics();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
