@@ -25,13 +25,6 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      # Setup Java (voor UserService)
-      - name: Setup Java
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
       # Restore dependencies voor .NET-services
       - name: Restore dependencies for TaskService
         run: dotnet restore TaskSystem/TaskService.sln
@@ -39,10 +32,8 @@ jobs:
       - name: Restore dependencies for NotificationService
         run: dotnet restore NotificationService/NotificationService.sln
 
-      # Restore dependencies en build voor UserService (Java)
-      - name: Restore dependencies for UserService (Java)
-        run: mvn dependency:resolve
-        working-directory: UserService
+      - name: Restore dependencies for BoardService
+        run: dotnet restore BoardService/BoardService.sln
 
       # Build alle services
       - name: Build TaskService
@@ -51,9 +42,8 @@ jobs:
       - name: Build NotificationService
         run: dotnet build NotificationService/NotificationService.sln --no-restore
 
-      - name: Build UserService (Java)
-        run: mvn clean package
-        working-directory: UserService
+      - name: Build BoardService
+        run: dotnet build BoardService/BoardService.sln --no-restore
 
   test:
     runs-on: ubuntu-latest
@@ -71,9 +61,8 @@ jobs:
       - name: Test NotificationService
         run: dotnet test NotificationService/NotificationService.sln --no-build --verbosity normal
 
-      - name: Test UserService (Java)
-        run: mvn test
-        working-directory: UserService
+      - name: Test BoardService
+        run: dotnet test BoardService/BoardService.sln --no-build --verbosity normal
 
       - name: Check Prometheus alerts
         run: |
@@ -111,9 +100,9 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/taskservice-notificationservice:latest ./NotificationService/NotificationService
 
-      - name: Build Docker image for UserService
+      - name: Build Docker image for BoardService
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/taskservice-userservice:latest ./UserService
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/taskservice-boardservice:latest ./BoardService
 
       - name: Push RabbitMQ image to Docker Hub
         run: |
@@ -126,7 +115,7 @@ jobs:
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/taskservice-taskservice:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/taskservice-notificationservice:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/taskservice-userservice:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/taskservice-boardservice:latest
 
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/dotnet@master
@@ -143,7 +132,7 @@ jobs:
       - name: Deploy Docker images locally
         run: |
           # Stop and remove any running containers with the same name
-          docker rm -f taskservice notificationservice userservice rabbitmq || true
+          docker rm -f taskservice notificationservice boardservice rabbitmq || true
 
           # Run RabbitMQ container
           docker run -d --name rabbitmq -p 15672:15672 -p 5672:5672 \
@@ -157,6 +146,6 @@ jobs:
           docker run -d --name notificationservice -p 5002:80 \
           ${{ secrets.DOCKER_USERNAME }}/taskservice-notificationservice:latest
 
-          # Run UserService container
-          docker run -d --name userservice -p 5003:80 \
-          ${{ secrets.DOCKER_USERNAME }}/taskservice-userservice:latest
+          # Run BoardService container
+          docker run -d --name boardservice -p 5003:80 \
+          ${{ secrets.DOCKER_USERNAME }}/taskservice-boardservice:latest
