@@ -102,7 +102,8 @@ jobs:
 
       - name: Build Docker image for BoardService
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/taskservice-boardservice:latest ./BoardService
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/taskservice-boardservice:latest -f ./BoardService/BoardService/Dockerfile ./BoardService/BoardService
+
 
       - name: Push RabbitMQ image to Docker Hub
         run: |
